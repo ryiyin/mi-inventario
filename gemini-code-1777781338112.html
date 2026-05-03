@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lector T&G Market</title>
+    <!-- Cargamos la librería desde internet -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; }
+        #reader { width: 100%; max-width: 500px; margin: auto; }
+        #resultado { font-weight: bold; color: green; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Escáner de Inventario</h2>
+    <div id="reader"></div>
+    <div id="resultado">Código detectado: <span id="scanned-result">Ninguno</span></div>
+
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // Cuando detecta un código, lo muestra en el HTML
+            document.getElementById('scanned-result').innerText = decodedText;
+            
+            // OPCIONAL: Aquí podrías enviar el código automáticamente a tu Google Sheets
+            console.log(`Código escaneado: ${decodedText}`);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+</body>
+</html>
